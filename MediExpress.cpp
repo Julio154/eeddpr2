@@ -4,14 +4,39 @@
 
 #include "MediExpress.h"
 
+#include <fstream>
+#include <sstream>
+
+MediExpress::MediExpress() {
+}
+
+MediExpress::~MediExpress() {
+}
+MediExpress::MediExpress(const ListaEnlazada<Laboratorio> &labs, const VDinamico<PaMedicamento> &medication)
+    : labs(labs),
+      medication(medication) {
+}
+
 
 void MediExpress::suministrarMed(PaMedicamento pa, Laboratorio l) {
 }
 
 Laboratorio * MediExpress::buscarLab(std::string nombreLab) {
+ListaEnlazada<Laboratorio>::Iterador it= labs.iteradorInicio();
+    int c=0;
+    do {
+        if (it.dato().get_nombre_lab()==nombreLab) {
+            return &it.dato();
+        }
+        it.siguiente();
+    }while (c<labs.tam());
+    return nullptr;
+
+
 }
 
 ListaEnlazada<Laboratorio *> MediExpress::buscarLabCiudad(std::string nombreCiudad) {
+
 }
 
 VDinamico<PaMedicamento*> MediExpress::buscarCompuesto(std::string comp) {

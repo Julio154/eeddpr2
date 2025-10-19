@@ -4,6 +4,7 @@
 
 #ifndef PR1_LISTAENLAZADA_H
 #define PR1_LISTAENLAZADA_H
+#include <stdexcept>
 
 template <class T>
 class ListaEnlazada{

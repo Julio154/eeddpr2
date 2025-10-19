@@ -16,14 +16,16 @@ private:
 ListaEnlazada<Laboratorio> labs;
     VDinamico<PaMedicamento> medication;
     public:
+    MediExpress();
+    ~MediExpress();
 
-    void suministrarMed(PaMedicamento pa,Laboratorio l);
+MediExpress(const ListaEnlazada<Laboratorio> &labs, const VDinamico<PaMedicamento> &medication);
+
+void suministrarMed(PaMedicamento pa,Laboratorio l);
     Laboratorio* buscarLab(std::string nombreLab);
     ListaEnlazada<Laboratorio*> buscarLabCiudad(std::string nombreCiudad);
     VDinamico<PaMedicamento*> buscarCompuesto(std::string comp);
     VDinamico<PaMedicamento*> getMedicamSinLab();
-
-
 };
 
 

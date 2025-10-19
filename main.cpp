@@ -45,6 +45,13 @@ void mostrarEnteros(ListaEnlazada<int> *lista){
     std::cout<<std::endl;
 }
 
+void mostrarLaboratorios(ListaEnlazada<Laboratorio> *lista){
+    for (ListaEnlazada<Laboratorio> ::Iterador it= lista->iteradorInicio();!it.fin() ; it.siguiente()) {
+        std::cout<<" - "<<it.dato().get_nombre_lab()<<"\t"<<it.dato().get_localidad()<<std::endl;
+    }
+    std::cout<<std::endl;
+}
+
 /**
  * @author Silvia Cruz Roman scr00043@red.ujaen.es
  */
@@ -94,19 +101,18 @@ int main(int argc, const char * argv[]) {
 
 
 
-do{
+do {
     menu2();
-    VDinamico<PaMedicamento> vMedicamento;
+    VDinamico<PaMedicamento> medication;
+    ListaEnlazada<Laboratorio> labs;
 
     std::ifstream is;
     std::stringstream  columnas;
     std::string fila;
-    int contador=0;
 
     std::string id_number = "";
     std::string id_alpha="";
     std::string nombre="";
-
 
     is.open("../pa_medicamentos.csv"); //carpeta de proyecto
     if ( is.good() ) {
@@ -125,24 +131,17 @@ do{
                 getline(columnas, id_alpha,';');
                 getline(columnas, nombre,';');
 
-
                 fila="";
                 columnas.clear();
 
-                /*     std::cout << ++contador
-                               << " Medicamento: ( Id_number=" << id_number
-                               << " id_alpha=" << id_alpha << " Nombre=" << nombre
-                               << ")" << std::endl;
-     */
                 int idNumber=std::stoi(id_number);
                 PaMedicamento medicamento(idNumber,id_alpha,nombre);
-                vMedicamento.insertar(medicamento);
+                medication.insertar(medicamento);
             }
         }
 
         is.close();
         std::cout<<"Lectura de Laboratorios:"<<std::endl;
-        ListaEnlazada<Laboratorio> labs;
         std::string id;
         std::string nombre_lab;
         std::string direccion;
@@ -170,11 +169,6 @@ do{
                     fila="";
                     columnas.clear();
 
-                    /*     std::cout << ++contador
-                                   << " Medicamento: ( Id_number=" << id_number
-                                   << " id_alpha=" << id_alpha << " Nombre=" << nombre
-                                   << ")" << std::endl;
-         */
                     int idNumberLabs=std::stoi(id);
                     Laboratorio laboratorio (idNumberLabs,nombre_lab,direccion,codPostal,localidad);
                     labs.insertaFin(laboratorio);
@@ -184,15 +178,17 @@ do{
             is.close();
             std::cout << "Tiempo de lectura: " << ((clock() - t_ini) / (float) CLOCKS_PER_SEC) << " segs." << std::endl;
         }
+    }
+
+
+
+        //MediExpress medi_express(labs,medication);
+
         std::cin>>opcion;
         switch (opcion) {
             case 1: {
                 std::cout << "1.Buscar todos los laboratorios en Granada o provincia"<<std::endl;
                 ListaEnlazada<Laboratorio> labs_granada;
-                do {
-                    if (labs.iteradorInicio().dato().get_localidad()=="Granada") {}
-                }
-
                 break;
             }
             case 2:
@@ -206,7 +202,6 @@ do{
             case 6:
                 break;
         }
-    }
 }while(opcion>0 && opcion<5);
     } catch (std::exception) {
         std::cerr<<"ERROR";

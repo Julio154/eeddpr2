@@ -3,19 +3,18 @@
 #include <string>
 #include <sstream>
 #include "VDinamico.h"
-#include "Aeropuerto.h"
-#include "UTM.h"
 #include "ListaEnlazada.h"
-#include "Ruta.h"
-#include "VuelaFlight.h"
+#include "Laboratorio.h"
+#include "MediExpress.h"
+#include "PaMedicamento.h"
 /**
  * @brief funcion que nos muestra por pantalla un menu de opciones
  */
 void menu1(){
     std::cout<<"------MENU-----Programa de prueba 1: Enteros"<<std::endl
     <<"1.Crear una lista de enteros inicialmente vacia"<<std::endl
-    <<"2.Insertar al final de la lista los valores crecioentes desde 101 a 200"<<std::endl
-    <<"3.Insertar por el comienzo de l alista los valores decrecientes desde 98 a 1 "<<std::endl
+    <<"2.Insertar al final de la lista los valores crecientes desde 101 a 200"<<std::endl
+    <<"3.Insertar por el comienzo de la lista los valores decrecientes desde 98 a 1 "<<std::endl
     <<"4.Mostrar la lista"<<std::endl
     <<"5.Borra los 10 primeros de la lista "<<std::endl
     <<"6.Borra los 10 ultimos de la lista "<<std::endl
@@ -25,37 +24,13 @@ void menu1(){
  * @brief funcion que nos muestra por pantalla un menu de opciones
  */
 void menu2(){
-    std::cout<<"------MENU-----Programa de prueba 2: VuelaFlight------ LAS OPCIONES NO CONTEMPLADAS TE PERMITEN SALIR"<<std::endl
-            <<"1.Buscar si hay Ruta entre BCN y IST"<<std::endl
-            <<"2.Buscar si hay Ruta entre GRX y algun aeropuerto ingles GB"<<std::endl
-            <<"3.Anadir en O(1) una nueva Ruta entre GRX con CDG de IBE"<<std::endl;
-}
-/**
- * @brief funcion que nos muestra por pantalla si se encuentra un identificador de aeropuerto
- * @param aeropuerto Aeropuerto que queremos buscar
- * @param v VDinamico, es en la estructura que lo queremos buscar
- */
-void buscar(Aeropuerto aeropuerto,VDinamico<Aeropuerto> &v){
-
-    if (v.busquedaBin(aeropuerto)== -1){
-        std::cout<<" No se encuentra "<<std::endl;
-    }else{
-        std::cout<<" Se encuentra en la posicion : "<<v.busquedaBin(aeropuerto)<<std::endl;
-    }
-}
-/**
- * @brief funcion que nos muestra los aeropuertos del vectorDinamico
- * @param v
- */
-void mostrarAeropuertos(VDinamico<Aeropuerto> v){
-    for (int i = 0; i < v.tamlog(); ++i) {
-        std::cout<<"Nombre:"<<v[i].getNombre()
-        <<"\tid:"<<v[i].getId()
-        <<"\tpais:"<<v[i].getIsoPais()
-        <<"\tContinente:"<<v[i].getContinente()<<std::endl;
-
-
-    }
+    std::cout<<"------MENU-----Programa de prueba 2: LAS OPCIONES NO CONTEMPLADAS TE PERMITEN SALIR"<<std::endl
+            <<"1.Buscar todos los laboratorios en Granada o provincia"<<std::endl
+            <<"2.Buscar cuantos laboratorios hay en Jaén"<<std::endl
+            <<"3.Buscar cuantos laboratorios hay en Madrid"<<std::endl
+            <<"4.Mostrar todos los laboratorios que suministran todos los productos que sean ACEITES"<<std::endl
+            <<"5.Hacer que los 152 medicamentos sin suministradores sean suministrados por los primeros 152 laboratorios ubicados en Madrid de forma consecutiva"<<std::endl
+            <<"6.PAREJAS: eliminar los laboratorios de Bruselas"<<std::endl;
 }
 /**
  * @brief funcion que nos muestra la lista de enteros
@@ -78,8 +53,6 @@ int main(int argc, const char * argv[]) {
     try{
 
         int opcion;
-        std::cout<<"Cargando datos de los aeropuertos... Puede tardar varios minutos "<<std::endl;
-        VuelaFlight vf;
         menu1();
         std::cout<<"1.Crear una listaEnteros de enteros inicialmente vacia"<<std::endl;
         ListaEnlazada<int> listaEnteros;
@@ -127,70 +100,19 @@ do{
     menu2();
     std::cin>>opcion;
     switch (opcion) {
-        case 1:{
-            std::cout<<"1.Buscar si hay Ruta entre BCN y IST"<<std::endl;
-            Ruta *encontrar=vf.buscarRutasOriDes("BCN","IST");
-            if (encontrar== nullptr){
-                std::cout <<"No existe la ruta "<<std::endl;
-            }else
-                std::cout<<"Existe la ruta"<<std::endl;
+        case 1:
             break;
-        }
-        case 2:{
-            std::cout<<"2.Buscar si hay Ruta entre GRX y algun aeropuerto ingles GB"<<std::endl;
-
-            VDinamico<Aeropuerto*> aeroGB=vf.buscarAeropuertoPais("GB");
-            std::cout<<"Se han encontrado "<<aeroGB.tamlog()<<" aeropuertos con destino a GB";
-
-            VDinamico<Ruta*> rutasGrx=vf.buscarRutasOrigen("GRX");
-            std::cout<<"Se han encontrado "<<rutasGrx.tamlog()<<"desde GRX"<<std::endl;
-
-            int k=0;
-            for (int i=0;i<rutasGrx.tamlog();i++){
-                for (int j = 0; j < aeroGB.tamlog(); ++j) {
-                    if(rutasGrx[i]->getDestination()->getIdent()==aeroGB[j]->getIdent()){
-                        std::cout<<"GRX conecta con "<<aeroGB[i]->getIdent()<<std::endl;
-                        k++;
-                    }
-                }
-            }
-            std::cout<<"Hay un total de "<<k<<std::endl;
+        case 2:
             break;
-        }
         case 3:
-            std::cout<<"3.Anadir en O(1) una nueva Ruta entre GRX con CDG de IBE"<<std::endl;
-            std::cout<<"El numero total de rutas obtenido es: "<<vf.nRutas()<<std::endl;
-
-            vf.addNuevaRuta("GRX","CDG","IBE");
-            vf.addNuevaRuta("CDG","GRX","IBE");
-           std::cout<<"Tras anadir la nueva ruta el numero total de rutas obtenido es: "<<vf.nRutas()<<std::endl;
-           break;
-           /* COMO ES POR PAREJAS Y VOY SOLA LO HE DEJADO COMENTADO
+            break;
         case 4:
-            std::cout<<"especial parejas --4.Rutas existentes entre Espana y Portugal"<<std::endl;
-            VDinamico<Aeropuerto*> aeroPortugal=vf.buscarAeropuertoPais("PT");
-            VDinamico<Aeropuerto*> aeroEspana=vf.buscarAeropuertoPais("ES");
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
 
-            std::cout<<"Hay "<<aeroEspana.tamlog()<<" aeropuertos espanoles registrados"<<std::endl;
-            std::cout<<"Hay "<<aeroPortugal.tamlog()<<" aeropuertos portugueses registrados"<<std::endl;
-            int cont=0,con=0;
-            for (int i = 0; i < aeroEspana.tamlog(); ++i) {
-                con=0;
-                for (int j = 0; j < aeroPortugal.tamlog(); ++j) {
-                    if(vf.buscarRutasOriDes(aeroEspana[i]->getIdent(),aeroPortugal[j]->getIdent())!= nullptr) {
-                        con++;
-                        std::cout << "buscando ruta " << con << std::endl;
-                        cont++;
-                    }
-                    if(vf.buscarRutasOriDes(aeroPortugal[j]->getIdent(),aeroEspana[i]->getIdent())!= nullptr) {
-                        con++;
-                        std::cout << "buscando ruta " << con << std::endl;
-                        cont++;
-                    }
-                }
-            }
-            std::cout<<"El numero total de rutas que existen entre Espana y Portugal es "<<cont<<std::endl;
-            break;*/
     }
 }while(opcion>0 && opcion<5);
     } catch (std::exception) {

@@ -35,7 +35,14 @@ ListaEnlazada<Laboratorio>::Iterador it= labs.iteradorInicio();
 
 }
 
-ListaEnlazada<Laboratorio *> MediExpress::buscarLabCiudad(std::string nombreCiudad) {
+ListaEnlazada<Laboratorio> MediExpress::buscarLabCiudad(std::string nombreCiudad) {
+ListaEnlazada<Laboratorio> nuevaLista;
+    for (ListaEnlazada<Laboratorio> ::Iterador it= labs.iteradorInicio();!it.fin() ; it.siguiente()) {
+        if (it.dato().get_localidad()==nombreCiudad) {
+            nuevaLista.insertaFin(it.dato());
+        }
+    }
+    return nuevaLista;
 
 }
 

@@ -23,7 +23,8 @@ MediExpress(const ListaEnlazada<Laboratorio> &labs, const VDinamico<PaMedicament
 
 void suministrarMed(PaMedicamento pa,Laboratorio l);
     Laboratorio* buscarLab(std::string nombreLab);
-    ListaEnlazada<Laboratorio*> buscarLabCiudad(std::string nombreCiudad);
+
+ListaEnlazada<Laboratorio> buscarLabCiudad(std::string nombreCiudad);
     VDinamico<PaMedicamento*> buscarCompuesto(std::string comp);
     VDinamico<PaMedicamento*> getMedicamSinLab();
 };

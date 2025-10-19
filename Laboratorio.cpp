@@ -7,6 +7,15 @@
 Laboratorio::Laboratorio() {
 }
 
+Laboratorio::Laboratorio(int id, const std::string &nombre_lab, const std::string &direccion, const std::string &cod_postal,
+    const std::string &localidad)
+    : id(id),
+      nombreLab(nombre_lab),
+      direccion(direccion),
+      codPostal(cod_postal),
+      localidad(localidad) {
+}
+
 Laboratorio::~Laboratorio() {
 }
 

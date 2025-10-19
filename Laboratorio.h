@@ -18,6 +18,9 @@ public:
 
     Laboratorio();
 
+    Laboratorio(int id, const std::string &nombre_lab, const std::string &direccion, const std::string &cod_postal,
+        const std::string &localidad);
+
     ~Laboratorio();
 
     int get_id() const;

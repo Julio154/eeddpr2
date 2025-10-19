@@ -26,7 +26,7 @@ void menu1(){
 void menu2(){
     std::cout<<"------MENU-----Programa de prueba 2: LAS OPCIONES NO CONTEMPLADAS TE PERMITEN SALIR"<<std::endl
             <<"1.Buscar todos los laboratorios en Granada o provincia"<<std::endl
-            <<"2.Buscar cuantos laboratorios hay en Jaén"<<std::endl
+            <<"2.Buscar cuantos laboratorios hay en Jaen"<<std::endl
             <<"3.Buscar cuantos laboratorios hay en Madrid"<<std::endl
             <<"4.Mostrar todos los laboratorios que suministran todos los productos que sean ACEITES"<<std::endl
             <<"5.Hacer que los 152 medicamentos sin suministradores sean suministrados por los primeros 152 laboratorios ubicados en Madrid de forma consecutiva"<<std::endl
@@ -44,7 +44,6 @@ void mostrarEnteros(ListaEnlazada<int> *lista){
     }
     std::cout<<std::endl;
 }
-
 
 /**
  * @author Silvia Cruz Roman scr00043@red.ujaen.es
@@ -96,23 +95,117 @@ int main(int argc, const char * argv[]) {
 
 
 do{
-
     menu2();
-    std::cin>>opcion;
-    switch (opcion) {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
+    VDinamico<PaMedicamento> vMedicamento;
 
+    std::ifstream is;
+    std::stringstream  columnas;
+    std::string fila;
+    int contador=0;
+
+    std::string id_number = "";
+    std::string id_alpha="";
+    std::string nombre="";
+
+
+    is.open("../pa_medicamentos.csv"); //carpeta de proyecto
+    if ( is.good() ) {
+        clock_t t_ini = clock();
+
+        while ( getline(is, fila ) ) {
+
+            //¿Se ha leído una nueva fila?
+            if (fila!="") {
+
+                columnas.str(fila);
+
+                //formato de fila: id_number;id_alpha;nombre;
+
+                getline(columnas, id_number, ';'); //leemos caracteres hasta encontrar y omitir ';'
+                getline(columnas, id_alpha,';');
+                getline(columnas, nombre,';');
+
+
+                fila="";
+                columnas.clear();
+
+                /*     std::cout << ++contador
+                               << " Medicamento: ( Id_number=" << id_number
+                               << " id_alpha=" << id_alpha << " Nombre=" << nombre
+                               << ")" << std::endl;
+     */
+                int idNumber=std::stoi(id_number);
+                PaMedicamento medicamento(idNumber,id_alpha,nombre);
+                vMedicamento.insertar(medicamento);
+            }
+        }
+
+        is.close();
+        std::cout<<"Lectura de Laboratorios:"<<std::endl;
+        ListaEnlazada<Laboratorio> labs;
+        std::string id;
+        std::string nombre_lab;
+        std::string direccion;
+        std::string codPostal;
+        std::string localidad;
+
+        is.open("../lab2.csv"); //carpeta de proyecto
+        if ( is.good() ) {
+
+            while ( getline(is, fila ) ) {
+
+                //¿Se ha leído una nueva fila?
+                if (fila!="") {
+
+                    columnas.str(fila);
+
+                    //formato de fila: id;nombreLab;direccion;codPostal;localidad;
+
+                    getline(columnas, id, ';'); //leemos caracteres hasta encontrar y omitir ';'
+                    getline(columnas, nombre_lab,';');
+                    getline(columnas, direccion,';');
+                    getline(columnas, codPostal,';');
+                    getline(columnas, localidad,';');
+
+                    fila="";
+                    columnas.clear();
+
+                    /*     std::cout << ++contador
+                                   << " Medicamento: ( Id_number=" << id_number
+                                   << " id_alpha=" << id_alpha << " Nombre=" << nombre
+                                   << ")" << std::endl;
+         */
+                    int idNumberLabs=std::stoi(id);
+                    Laboratorio laboratorio (idNumberLabs,nombre_lab,direccion,codPostal,localidad);
+                    labs.insertaFin(laboratorio);
+                }
+            }
+
+            is.close();
+            std::cout << "Tiempo de lectura: " << ((clock() - t_ini) / (float) CLOCKS_PER_SEC) << " segs." << std::endl;
+        }
+        std::cin>>opcion;
+        switch (opcion) {
+            case 1: {
+                std::cout << "1.Buscar todos los laboratorios en Granada o provincia"<<std::endl;
+                ListaEnlazada<Laboratorio> labs_granada;
+                do {
+                    if (labs.iteradorInicio().dato().get_localidad()=="Granada") {}
+                }
+
+                break;
+            }
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+        }
     }
 }while(opcion>0 && opcion<5);
     } catch (std::exception) {
@@ -120,4 +213,3 @@ do{
     }
  return 0;
 }
-

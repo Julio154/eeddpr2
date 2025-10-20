@@ -33,7 +33,7 @@ class MediExpress
         VDinamico<PaMedicamento*> buscarCompuesto(std::string comp);
         VDinamico<PaMedicamento*> getMedicamSinLab();
 
-        ListaEnlazada<Laboratorio> get_labs() const;
+        ListaEnlazada<Laboratorio>& get_labs() ;
 
         void set_labs(const ListaEnlazada<Laboratorio> &labs);
 

@@ -94,7 +94,7 @@ VDinamico<PaMedicamento *> MediExpress::getMedicamSinLab() {
     return vmedicamento;
 }
 
-ListaEnlazada<Laboratorio> MediExpress::get_labs() const {
+ListaEnlazada<Laboratorio>& MediExpress::get_labs()  {
     return labs;
 }
 

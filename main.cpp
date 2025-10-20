@@ -122,7 +122,7 @@ int main(int argc, const char * argv[]) {
                 }
             }
 
-        }while (opcion > 0 && opcion < 7);
+        }while (opcion > 0 && opcion < 8);
 
 
 
@@ -296,11 +296,10 @@ int main(int argc, const char * argv[]) {
 
                         std::cout<<"Vamos a borrar esos laboratorios "<<std::endl;
                         for (ListaEnlazada<Laboratorio> ::Iterador it= medi_express.get_labs().iteradorInicio();!it.fin() ; it.siguiente()) {
-                            if (it.dato().get_localidad()=="Bruselas") {
+                            if (it.dato().get_localidad().find("Bruselas")!= std::string::npos) {
                                 medi_express.get_labs().borra(it);
                             }
                         }
-
                         std::cout<<"Para comprobar que se han borrado vemos el numero total actual: " <<medi_express.get_labs().tam()<<std::endl;
                         break;
                     }

@@ -78,9 +78,10 @@ ListaEnlazada<T>::ListaEnlazada(): cabecera(0),cola(0), tama(0) {
  * @param origen
  */
 template<class T>
-ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &origen) {
-Nodo<T> *p=origen.cabecera;
-    while (p!=0){
+ListaEnlazada<T>::ListaEnlazada(const ListaEnlazada<T> &origen):
+cabecera(nullptr), cola(nullptr), tama(0) {
+    Nodo<T> *p=origen.cabecera;
+    while (p!=nullptr){
         insertaFin(p->dato);
         p=p->sig;
     }
@@ -222,6 +223,39 @@ void ListaEnlazada<T>::borraInicio() {
  */
 template<class T>
 void ListaEnlazada<T>::borraFinal() {
+    // 1. Caso de lista vacía: No hay nada que borrar
+    if (cabecera == nullptr) {
+        return;
+    }
+
+    // El nodo a borrar siempre es 'cola'
+    Nodo<T> *aBorrar = cola;
+
+    // 2. Caso de UN SOLO elemento
+    if (cabecera == cola) {
+        // La lista queda vacía
+        cabecera = nullptr;
+        cola = nullptr;
+    }
+    // 3. Caso de MÚLTIPLES elementos (más de uno)
+    else {
+        // Buscar el penúltimo nodo (el que apunta a 'cola')
+        Nodo<T> *anterior = cabecera;
+        // Recorrer hasta que 'anterior->sig' sea el nodo 'cola'
+        while (anterior->sig != cola) {
+            anterior = anterior->sig;
+        }
+
+        // El penúltimo nodo se convierte en el nuevo 'cola'
+        cola = anterior;
+        cola->sig = nullptr; // El nuevo final debe apuntar a nullptr (o 0)
+    }
+
+    // 4. Liberar la memoria y actualizar el tamaño
+    delete aBorrar;
+    tama--;
+}
+/*void ListaEnlazada<T>::borraFinal() {
     Nodo<T> *anterior= nullptr;
     tama--;
     if (cola!=cabecera){
@@ -331,11 +365,14 @@ ListaEnlazada<T> &ListaEnlazada<T>::operator+(ListaEnlazada &otraLista) {
  */
 template<class T>
 ListaEnlazada<T>::~ListaEnlazada() {
-    Nodo<T> *p=cabecera;
-while (p!= nullptr){
-    borraFinal();
-    p=p->sig;
-}
-}
+    Nodo<T> *actual = cabecera;
+    Nodo<T> *siguiente = nullptr;
 
+    while (actual != nullptr) {
+        siguiente = actual->sig;
+
+        delete actual;
+   actual = siguiente;
+    }
+}
 #endif //PR1_LISTAENLAZADA_H

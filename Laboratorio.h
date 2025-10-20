@@ -18,8 +18,10 @@ public:
 
     Laboratorio();
 
+    Laboratorio(const Laboratorio &otro);
+
     Laboratorio(int id, const std::string &nombre_lab, const std::string &direccion, const std::string &cod_postal,
-        const std::string &localidad);
+                const std::string &localidad);
 
     ~Laboratorio();
 
@@ -42,6 +44,7 @@ public:
     std::string get_localidad() const;
 
     void set_localidad(const std::string &localidad);
+    Laboratorio &operator=(const Laboratorio &v);
 };
 
 

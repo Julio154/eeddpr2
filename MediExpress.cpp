@@ -38,7 +38,17 @@ ListaEnlazada<Laboratorio>::Iterador it= labs.iteradorInicio();
 ListaEnlazada<Laboratorio> MediExpress::buscarLabCiudad(std::string nombreCiudad) {
 ListaEnlazada<Laboratorio> nuevaLista;
     for (ListaEnlazada<Laboratorio> ::Iterador it= labs.iteradorInicio();!it.fin() ; it.siguiente()) {
-        if (it.dato().get_localidad()==nombreCiudad) {
+        if (it.dato().get_localidad().find(nombreCiudad)!= std::string::npos) {
+            nuevaLista.insertaFin(it.dato());
+        }
+    }
+    return nuevaLista;
+
+}
+ListaEnlazada<Laboratorio> MediExpress::buscarLabSoloCiudad(std::string nombreCiudad) {
+    ListaEnlazada<Laboratorio> nuevaLista;
+    for (ListaEnlazada<Laboratorio> ::Iterador it= labs.iteradorInicio();!it.fin() ; it.siguiente()) {
+        if (it.dato().get_localidad()== nombreCiudad) {
             nuevaLista.insertaFin(it.dato());
         }
     }
@@ -57,3 +67,11 @@ VDinamico<PaMedicamento*> MediExpress::buscarCompuesto(std::string comp) {
 
 VDinamico<PaMedicamento *> MediExpress::getMedicamSinLab() {
 }
+
+ListaEnlazada<Laboratorio> MediExpress::get_labs() const {
+    return labs;
+}
+MediExpress::MediExpress(const ListaEnlazada<Laboratorio> &labs)
+   : labs(labs) {
+}
+

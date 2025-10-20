@@ -94,7 +94,7 @@ T &VDinamico<T>::operator[](int pos) {
 template<class T>
 VDinamico<T> &VDinamico<T>::operator=(const VDinamico<T> &v) {
     delete [] memoria;
-    tama_logico=v.tam;
+    tama_logico=v.tamlog();
     memoria= new T [tama_logico];
     for (int i =0;i<tama_logico;i++){
         memoria[i]=v.memoria[i];
@@ -122,7 +122,7 @@ VDinamico<T>::VDinamico(const VDinamico<T> &origen) {
  */
 template<class T>
 VDinamico<T>::VDinamico(const VDinamico<T> &origen, unsigned int posicionInicial, unsigned int numElementos) {
-    if(posicionInicial >= origen.taml || posicionInicial+numElementos >= origen.taml) throw std::invalid_argument("[!]: Tama_logico de origen superado. No se puede copiar.");
+    if(posicionInicial >= origen.tamlog() || posicionInicial+numElementos >= origen.tamlog()) throw std::invalid_argument("[!]: Tama_logico de origen superado. No se puede copiar.");
     memoria = new T[tama_fisico];
     for (int i = 0; i < numElementos; i++) {
         memoria[i] = origen.memoria[i + posicionInicial];

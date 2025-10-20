@@ -44,6 +44,9 @@ public:
     bool operator<=(const PaMedicamento &rhs) const;
     bool operator>=(const PaMedicamento &rhs) const;
 
+    PaMedicamento &operator=(const PaMedicamento &v);
+
+
 
 };
 

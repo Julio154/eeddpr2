@@ -19,14 +19,25 @@ ListaEnlazada<Laboratorio> labs;
     MediExpress();
     ~MediExpress();
 
+    MediExpress(const ListaEnlazada<Laboratorio> &labs);
+
 MediExpress(const ListaEnlazada<Laboratorio> &labs, const VDinamico<PaMedicamento> &medication);
 
 void suministrarMed(PaMedicamento pa,Laboratorio l);
     Laboratorio* buscarLab(std::string nombreLab);
 
 ListaEnlazada<Laboratorio> buscarLabCiudad(std::string nombreCiudad);
+    ListaEnlazada<Laboratorio> buscarLabSoloCiudad(std::string nombreCiudad);
     VDinamico<PaMedicamento*> buscarCompuesto(std::string comp);
     VDinamico<PaMedicamento*> getMedicamSinLab();
+
+ListaEnlazada<Laboratorio> get_labs() const;
+
+void set_labs(const ListaEnlazada<Laboratorio> &labs);
+
+VDinamico<PaMedicamento> get_medication() const;
+
+void set_medication(const VDinamico<PaMedicamento> &medication);
 };
 
 

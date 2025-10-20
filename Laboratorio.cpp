@@ -6,6 +6,14 @@
 
 Laboratorio::Laboratorio() {
 }
+Laboratorio::Laboratorio(const Laboratorio &otro) {
+    id=otro.id;
+    nombreLab=otro.nombreLab;
+    localidad=otro.localidad;
+    codPostal=otro.codPostal;
+    direccion=otro.direccion;
+
+}
 
 Laboratorio::Laboratorio(int id, const std::string &nombre_lab, const std::string &direccion, const std::string &cod_postal,
     const std::string &localidad)
@@ -59,3 +67,11 @@ void Laboratorio::set_localidad(const std::string &localidad) {
     this->localidad = localidad;
 }
 
+Laboratorio &Laboratorio::operator=(const Laboratorio &v) {
+    id=v.id;
+    codPostal=v.codPostal;
+    localidad=v.localidad;
+    nombreLab = v.nombreLab;
+    direccion = v.direccion;
+    return *this;;
+}

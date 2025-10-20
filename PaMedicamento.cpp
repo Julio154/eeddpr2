@@ -120,3 +120,10 @@ bool PaMedicamento::operator<=(const PaMedicamento &rhs) const {
 bool PaMedicamento::operator>=(const PaMedicamento &rhs) const {
     return !(*this < rhs);
 }
+
+PaMedicamento &PaMedicamento::operator=(const PaMedicamento &v) {
+id_num=v.id_num;
+    id_alpha=v.id_alpha;
+    nombre=v.nombre;
+    return *this;;
+}

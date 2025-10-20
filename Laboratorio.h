@@ -14,6 +14,7 @@ private:
     std::string direccion;
     std::string codPostal;
     std::string localidad;
+
 public:
 
     Laboratorio();

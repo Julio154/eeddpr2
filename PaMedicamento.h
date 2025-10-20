@@ -6,6 +6,8 @@
 #define PR1_2526_PAMEDICAMENTO_H
 #include <string>
 
+#include "Laboratorio.h"
+
 /**
  * @brief Clase PaMedicamento que representa un medicamento con atributos id_num, id_alpha y nombre.
  */
@@ -14,6 +16,7 @@ private:
     int id_num;
     std::string id_alpha;
     std::string nombre;
+    Laboratorio lab;
 
 public:
     /**
@@ -35,6 +38,8 @@ public:
     void set_id_alpha(const std::string &id_alpha);
     std::string get_nombre() const;
     void set_nombre(const std::string &nombre);
+    void setLab(const Laboratorio lab);
+    std::string servidoPor();
 
     /** Sobrecarga de operadores para comparar objetos PaMedicamento */
     bool operator==(const PaMedicamento &rhs) const;

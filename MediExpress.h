@@ -12,32 +12,33 @@
 
 class MediExpress
 {
-private:
-ListaEnlazada<Laboratorio> labs;
-    VDinamico<PaMedicamento> medication;
+    private:
+        ListaEnlazada<Laboratorio> labs;
+        VDinamico<PaMedicamento> medication;
     public:
-    MediExpress();
-    ~MediExpress();
+        MediExpress();
+        ~MediExpress();
 
-    MediExpress(const ListaEnlazada<Laboratorio> &labs);
+        MediExpress(const ListaEnlazada<Laboratorio> &labs);
 
-MediExpress(const ListaEnlazada<Laboratorio> &labs, const VDinamico<PaMedicamento> &medication);
+        MediExpress(const ListaEnlazada<Laboratorio> &labs, const VDinamico<PaMedicamento> &medication);
 
-void suministrarMed(PaMedicamento pa,Laboratorio l);
-    Laboratorio* buscarLab(std::string nombreLab);
+        MediExpress(const MediExpress &orig);
 
-ListaEnlazada<Laboratorio> buscarLabCiudad(std::string nombreCiudad);
-    ListaEnlazada<Laboratorio> buscarLabSoloCiudad(std::string nombreCiudad);
-    VDinamico<PaMedicamento*> buscarCompuesto(std::string comp);
-    VDinamico<PaMedicamento*> getMedicamSinLab();
+        void suministrarMed();
+        Laboratorio* buscarLab(std::string nombreLab);
 
-ListaEnlazada<Laboratorio> get_labs() const;
+        ListaEnlazada<Laboratorio> buscarLabCiudad(std::string nombreCiudad);
+        ListaEnlazada<Laboratorio> buscarLabSoloCiudad(std::string nombreCiudad);
+        VDinamico<PaMedicamento*> buscarCompuesto(std::string comp);
+        VDinamico<PaMedicamento*> getMedicamSinLab();
 
-void set_labs(const ListaEnlazada<Laboratorio> &labs);
+        ListaEnlazada<Laboratorio> get_labs() const;
 
-VDinamico<PaMedicamento> get_medication() const;
+        void set_labs(const ListaEnlazada<Laboratorio> &labs);
 
-void set_medication(const VDinamico<PaMedicamento> &medication);
+        VDinamico<PaMedicamento> get_medication() const;
+
 };
 
 

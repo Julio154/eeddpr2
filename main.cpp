@@ -274,7 +274,7 @@ int main(int argc, const char * argv[]) {
 
                         VDinamico<PaMedicamento*> meds_sin_lab= medi_express.getMedicamSinLab();
                         ListaEnlazada<Laboratorio> labs_madrid2(medi_express.buscarLabSoloCiudad("Madrid"));
-                        std::cout<<"Medicamentos sin laboratorio: "<<meds_sin_lab.getTamlog()<<std::endl;
+                        std::cout<<"Medicamentos sin laboratorio antes de: "<<meds_sin_lab.getTamlog()<<std::endl;
                         std::cout<<"Laboratorios en Madrid: "<<labs_madrid2.tam()<<std::endl;
 
                         int contador=0;
@@ -282,11 +282,13 @@ int main(int argc, const char * argv[]) {
                             meds_sin_lab[contador]->setLab(it.dato());
                             contador++;
                         }
-
+                        std::cout<<"Medicamentos sin laboratorio despues de: "<<meds_sin_lab.getTamlog()<<std::endl;
                         break;
                     }
                     case 6: {
                         std::cout<<"6.PAREJAS: eliminar los laboratorios de Bruselas"<<std::endl;
+
+                        std::cout<<"Numero total actual: " <<medi_express.get_labs().tam()<<std::endl;
 
                         ListaEnlazada<Laboratorio>  labs_bruselas(medi_express.buscarLabCiudad("Bruselas"));
                         std::cout<<"Los laboratorios de Bruselas son : "<<std::endl;
@@ -300,7 +302,7 @@ int main(int argc, const char * argv[]) {
                                 medi_express.get_labs().borra(it);
                             }
                         }
-                        std::cout<<"Para comprobar que se han borrado vemos el numero total actual: " <<medi_express.get_labs().tam()<<std::endl;
+                        std::cout<<"Numero total despues del borrado: " <<medi_express.get_labs().tam()<<std::endl;
                         break;
                     }
                 }
